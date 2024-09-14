@@ -1,0 +1,4 @@
+*.png
+*.pth
+__pycache_
+gan.pth_
