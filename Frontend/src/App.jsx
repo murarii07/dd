@@ -8,7 +8,7 @@ function App() {
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     setImage(URL.createObjectURL(file));
-  };
+  }
 
   useEffect(() => {
     if (image) {
@@ -16,19 +16,20 @@ function App() {
     }
   }, [image]);
 
-  const handleImageUpload = async () => {
-    const formData = new FormData();
-    formData.append("file", image);
+  const handleImageUpload = async (e) => {
+    e.preventDefault();
+    let c= document.querySelector('form')
+    const formData = new FormData(c);
 
     try {
-      const res = await fetch("http://192.168.43.157:8000", {
+      const res = await fetch("http://localhost:8000", {
         method: "POST",
-        mode: "cors",
         body: formData,
       });
       if (res.ok) {
         const blob = await res.blob();
-        const e = URL.createObjectURL(blob);
+        const e =  URL.createObjectURL(blob);
+        console.log(e)
         setColorizedImage(e);
       } else {
         console.log("Image upload failed");
@@ -39,7 +40,9 @@ function App() {
   };
 
   return (
+   
     <div className="bg-black h-full text-white bg-gradient-to-b from-black to-gray-900">
+      <form onSubmit={(e)=>handleImageUpload(e)} method="post" encType="multipart/form-data"> 
       <div className="text-2xl p-4 font-bold text-blue-500 shadow-2xl bg-black">
         SAR IMAGE COLORIZATION
       </div>
@@ -47,18 +50,19 @@ function App() {
         <label className="font-semibold text-xl" htmlFor="file">
           Select Image
         </label>
-        <input className="pl-20" type="file" id="file" onChange={handleImageChange} />
+        <input className="pl-20" name="file" type="file" id="file" onChange={handleImageChange} />
         <button
           className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700"
-          onClick={handleImageUpload}
+           type="submit"
         >
           Upload
         </button>
       </div>
-      <div className="flex justify-center gap-10 px-10">
+      <div className="image-box flex justify-center gap-10 px-10">
         <ImageCard src={image} alt={"original image"} title={"Original Image"} />
         <ImageCard src={ColorizedImage} alt={"Colorized image"} title={"Colorized Image"} />
       </div>
+      </form>
     </div>
   );
 }
