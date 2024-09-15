@@ -1,13 +1,17 @@
-import ImageCard from "./components/ImageCard";
 import { useState, useEffect } from "react";
+import ImageNO from "./components/imageColor";
 
 function App() {
+  const [imageNo,setImageNo]=useState({})
   const [image, setImage] = useState("");
   const [ColorizedImage, setColorizedImage] = useState("");
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
+   
+    setImageNo({imageNo,[file.name]:URL.createObjectURL(file)});
     setImage(URL.createObjectURL(file));
+    console.log("df",imageNo)
   }
 
   useEffect(() => {
@@ -55,14 +59,11 @@ function App() {
           className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700"
            type="submit"
         >
-          Upload
+          Colorize
         </button>
       </div>
-      <div className="image-box flex justify-center gap-10 px-10">
-        <ImageCard src={image} alt={"original image"} title={"Original Image"} />
-        <ImageCard src={ColorizedImage} alt={"Colorized image"} title={"Colorized Image"} />
-      </div>
       </form>
+      <ImageNO image={image} colorizedImage={ColorizedImage} />
     </div>
   );
 }
