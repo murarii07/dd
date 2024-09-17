@@ -2,17 +2,17 @@ import { useState, useEffect } from "react";
 import ImageNO from "./components/imageColor";
 
 function App() {
-  const [imageNo,setImageNo]=useState({})
-  const [image, setImage] = useState("");
-  const [ColorizedImage, setColorizedImage] = useState("");
-
+  const [image, setImage] = useState([]);
+  const [ColorizedImage, setColorizedImage] = useState([]);
   const handleImageChange = (event) => {
-    const file = event.target.files[0];
-   
-    setImageNo({imageNo,[file.name]:URL.createObjectURL(file)});
-    setImage(URL.createObjectURL(file));
-    console.log("df",imageNo)
-  }
+    const files = event.target.files;
+    let fileURLs = [];
+    for (const file of files) {
+      const imageUrl = URL.createObjectURL(file);
+      fileURLs.push(imageUrl);
+    }
+    setImage(fileURLs);
+  };
 
   useEffect(() => {
     if (image) {
@@ -22,8 +22,9 @@ function App() {
 
   const handleImageUpload = async (e) => {
     e.preventDefault();
-    let c= document.querySelector('form')
-    const formData = new FormData(c);
+    let fi=document.querySelector('form');
+    const formData = new FormData(fi);
+    console.log("ff",formData.getAll('files'))
 
     try {
       const res = await fetch("http://localhost:8000", {
@@ -31,16 +32,18 @@ function App() {
         body: formData,
       });
       if (res.ok) {
-        const blob = await res.blob();
-        const e =  URL.createObjectURL(blob);
-        console.log(e)
-        setColorizedImage(e);
+        // "data:image/png;base64," is the prefix that specifies the data is a base64-encoded PNG image
+        const filear = await res.json();
+        let colorizedImageArray=filear.map(e=>"data:image/png;base64,"+e)
+        setColorizedImage(colorizedImageArray)
+
       } else {
         console.log("Image upload failed");
       }
     } catch (error) {
       console.error("Error uploading image:", error);
     }
+  
   };
 
   return (
@@ -54,7 +57,7 @@ function App() {
         <label className="font-semibold text-xl" htmlFor="file">
           Select Image
         </label>
-        <input className="pl-20" name="file" type="file" id="file" onChange={handleImageChange} />
+        <input className="pl-20" name="files" type="file" multiple id="files" onChange={handleImageChange}  accept="image/*"/>
         <button
           className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700"
            type="submit"
@@ -63,7 +66,10 @@ function App() {
         </button>
       </div>
       </form>
-      <ImageNO image={image} colorizedImage={ColorizedImage} />
+        {image.length?image.map((img,index)=><ImageNO image={img} colorizedImage={ColorizedImage[index]} key={index}/>)
+          :<ImageNO image={""} colorizedImage={""} />
+        }
+      
     </div>
   );
 }
