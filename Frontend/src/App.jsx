@@ -42,8 +42,7 @@ function App() {
         let colorizedImageArray = filear.map(
           (e) => "data:image/png;base64," + e
         );
-        console.log(colorizedImageArray);
-        setColorizedImage(image);
+        setColorizedImage(colorizedImageArray);
       } else {
         console.log("Image upload failed");
       }
@@ -54,42 +53,42 @@ function App() {
 
   return (
     <>
-    <div className="text-white bg-[#507687]">
-      <form
-        onSubmit={(e) => handleImageUpload(e)}
-        method="post"
-        encType="multipart/form-data"
-      >
-        <Navbar />
+      <div className="text-white bg-[#507687]">
+        <form
+          onSubmit={(e) => handleImageUpload(e)}
+          method="post"
+          encType="multipart/form-data"
+        >
+          <Navbar />
 
-        <MainCard />
+          <MainCard />
 
-        <div id="drag" className="flex flex-col items-center gap-2 p-20">
-          <label className="font-bold text-xl" htmlFor="file">
-            Select Image
-          </label>
-          <FileUpload handleImageChange={handleImageChange} />
-          <button
+          <div id="drag" className="flex flex-col items-center gap-2 p-20">
+            <label className="font-bold text-xl" htmlFor="file">
+              Select Image
+            </label>
+            <FileUpload handleImageChange={handleImageChange} />
+            <button
               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               type="submit"
             >
               Upload
             </button>
-        </div>
-      </form>
-      {image.length ? (
-        image.map((img, index) => (
-          <ImageNO
-            image={img}
-            colorizedImage={ColorizedImage[index]}
-            key={index}
-          />
-        ))
-      ) : (
-        <ImageNO image={""} colorizedImage={""} />
-      )}
-    </div>
-    <Footer/>
+          </div>
+        </form>
+        {image.length ? (
+          image.map((img, index) => (
+            <ImageNO
+              image={img}
+              colorizedImage={ColorizedImage[index]}
+              key={index}
+            />
+          ))
+        ) : (
+          <ImageNO image={""} colorizedImage={""} />
+        )}
+      </div>
+      <Footer />
     </>
   );
 }
