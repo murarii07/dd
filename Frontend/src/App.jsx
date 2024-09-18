@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import ImageNO from "./components/imageColor";
+import FileUpload from "./components/Drag";
 
 function App() {
   const [image, setImage] = useState([]);
   const [ColorizedImage, setColorizedImage] = useState([]);
-  const handleImageChange = (event) => {
-    const files = event.target.files;
+  const handleImageChange = (acceptedFiles) => {
+    const files = acceptedFiles
     let fileURLs = [];
     for (const file of files) {
       const imageUrl = URL.createObjectURL(file);
@@ -48,7 +49,7 @@ function App() {
 
   return (
    
-    <div className="bg-black h-full text-white bg-gradient-to-b from-black to-gray-900">
+    <div className="text-white">
       <form onSubmit={(e)=>handleImageUpload(e)} method="post" encType="multipart/form-data"> 
       <div className="text-2xl p-4 font-bold text-blue-500 shadow-2xl bg-black">
         SAR IMAGE COLORIZATION
@@ -57,7 +58,7 @@ function App() {
         <label className="font-semibold text-xl" htmlFor="file">
           Select Image
         </label>
-        <input className="pl-20" name="files" type="file" multiple id="files" onChange={handleImageChange}  accept="image/*"/>
+        <FileUpload handleImageChange={handleImageChange} />
         <button
           className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700"
            type="submit"
