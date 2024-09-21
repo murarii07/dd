@@ -1,6 +1,6 @@
 const ImageCard = (props) => {
 
-  if(props.src == ""){
+  if (props.src == "") {
     return (
       <div className="bg-slate-800 shadow-lg w-96 h-96">
         <div className="text-center p-2">
@@ -8,7 +8,7 @@ const ImageCard = (props) => {
 
           </img>
           <span className="font-medium text-xl p-2 text-white ">{props.title}</span>
-        
+
         </div>
       </div>
     );
@@ -18,6 +18,8 @@ const ImageCard = (props) => {
       <div className="text-center p-2">
         <img className="w-96 h-80 rounded-lg" src={props.src} alt={props.alt}></img>
         <span className="font-medium text-xl p-2 text-white ">{props.title}</span>
+       {props.element}
+
       </div>
     </div>
   );
