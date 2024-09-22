@@ -13,11 +13,11 @@
     align-items: center;
     height: 200px;
     min-width: 60%;
-    
+    border-color: #06213d
   }
   
   .upload-box:hover {
-    border-color: #06213d;
+    border-color: #03101e;
   }
   
   .upload-icon {

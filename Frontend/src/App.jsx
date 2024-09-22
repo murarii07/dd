@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import ImageNO from "./components/imageColor";
 import FileUpload from "./components/Drag";
+import Navbar from "./components/Navbar";
+import MainCard from "./components/MainCard";
+import Footer from "./components/Footer";
 
 function App() {
   //  function base64ToBlob(base64, mimeType) {
@@ -38,6 +41,7 @@ function App() {
     console.log("ff",formData.getAll('files'))
 
     try {
+      setColorizedImage(image);
       const res = await fetch("http://localhost:8000", {
         method: "POST",
         body: formData,
@@ -45,12 +49,11 @@ function App() {
       if (res.ok) {
         // "data:image/png;base64," is the prefix that specifies the data is a base64-encoded PNG image
         const filear = await res.json();
-        // setColorizedImageData(filear.map(x=>
-        //   base64ToBlob(x)))
-        let colorizedImageArray=filear.map(imageData=>"data:image/png;base64,"+imageData)
-        setColorizedImage(colorizedImageArray)
-        
 
+        let colorizedImageArray = filear.map(
+          (e) => "data:image/png;base64," + e
+        );
+        setColorizedImage(colorizedImageArray);
       } else {
         console.log("Image upload failed");
       }
@@ -58,7 +61,6 @@ function App() {
     } catch (error) {
       console.error("Error uploading image:", error);
     }
-  
   };
   // const f=()=>{
   //   const clipboardItem = new ClipboardItem({ 'image/png': colorizedImageData[0] });
@@ -69,32 +71,47 @@ function App() {
   // }, [colorizedImageData]);
 
   return (
-   
-    <div className="text-white">
-      <div className="text-2xl p-4 font-bold text-blue-500 shadow-2xl bg-black">
-        SAR IMAGE COLORIZATION
-      </div>
-      <form onSubmit={(e)=>handleImageUpload(e)} method="post" encType="multipart/form-data"> 
-      <div className="flex flex-col items-center gap-2 p-20">
-        {/* <label className="font-semibold text-xl" htmlFor="file">
-          Select Image
-        </label> */}
-        <FileUpload handleImageChange={handleImageChange} />
-        <button
-          className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700"
-           type="submit"
+
+    <>
+      <div className="text-white bg-[#507687]">
+        <form
+          onSubmit={(e) => handleImageUpload(e)}
+          method="post"
+          encType="multipart/form-data"
         >
-          Colorize
-        </button>
+          <Navbar />
+
+          <MainCard />
+
+          <div id="drag" className="flex flex-col items-center gap-2 p-20">
+            <label className="font-bold text-xl" htmlFor="file">
+              Select Image
+            </label>
+            <FileUpload handleImageChange={handleImageChange} />
+            <button
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              type="submit"
+            >
+              Upload
+            </button>
+          </div>
+        </form>
+        {image.length ? (
+          image.map((img, index) => (
+            <ImageNO
+              image={img}
+              colorizedImage={ColorizedImage[index]}
+              key={index}
+            />
+          ))
+        ) : (
+          <ImageNO image={""} colorizedImage={""} />
+        )}
       </div>
-      </form>
-        {image.length?
-        image.map((img,index)=><ImageNO image={img} colorizedImage={ColorizedImage[index]} key={index}/>
-      )
-          :<ImageNO image={""} colorizedImage={""} />
-        }
-     
-    </div>
+
+      <Footer />
+    </>
+
   );
 }
 
