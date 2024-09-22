@@ -6,16 +6,26 @@ import MainCard from "./components/MainCard";
 import Footer from "./components/Footer";
 
 function App() {
+  //  function base64ToBlob(base64, mimeType) {
+  //   // Remove the base64 prefix if it exists
+  //   const byteCharacters = atob(base64);
+  //   const byteNumbers = new Array(byteCharacters.length);
+  
+  //   // Convert each character to a byte number
+  //   for (let i = 0; i < byteCharacters.length; i++) {
+  //     byteNumbers[i] = byteCharacters.charCodeAt(i);
+  //   }
+  //   // Convert the byte array to a Uint8Array
+  //   const byteArray = new Uint8Array(byteNumbers);
+  
+  //   // Create the Blob
+  //   return new Blob([byteArray], { type: mimeType });
+  // }
+  // const [colorizedImageData,setColorizedImageData]=useState([])
   const [image, setImage] = useState([]);
   const [ColorizedImage, setColorizedImage] = useState([]);
   const handleImageChange = (acceptedFiles) => {
-    const files = acceptedFiles;
-    let fileURLs = [];
-    for (const file of files) {
-      const imageUrl = URL.createObjectURL(file);
-      fileURLs.push(imageUrl);
-    }
-    setImage(fileURLs);
+    setImage(acceptedFiles.map(file=>URL.createObjectURL(file)));
   };
 
   useEffect(() => {
@@ -26,9 +36,9 @@ function App() {
 
   const handleImageUpload = async (e) => {
     e.preventDefault();
-    let fi = document.querySelector("form");
-    const formData = new FormData(fi);
-    console.log("ff", formData.getAll("files"));
+    let form=document.querySelector('form');
+    const formData = new FormData(form);
+    console.log("ff",formData.getAll('files'))
 
     try {
       setColorizedImage(image);
@@ -39,6 +49,7 @@ function App() {
       if (res.ok) {
         // "data:image/png;base64," is the prefix that specifies the data is a base64-encoded PNG image
         const filear = await res.json();
+
         let colorizedImageArray = filear.map(
           (e) => "data:image/png;base64," + e
         );
@@ -46,12 +57,21 @@ function App() {
       } else {
         console.log("Image upload failed");
       }
+
     } catch (error) {
       console.error("Error uploading image:", error);
     }
   };
+  // const f=()=>{
+  //   const clipboardItem = new ClipboardItem({ 'image/png': colorizedImageData[0] });
+  //  navigator.clipboard.write([clipboardItem])
+  // }
+  // useEffect(() => {
+  //     console.log("Colorized Image Data:", colorizedImageData);
+  // }, [colorizedImageData]);
 
   return (
+
     <>
       <div className="text-white bg-[#507687]">
         <form
@@ -88,8 +108,10 @@ function App() {
           <ImageNO image={""} colorizedImage={""} />
         )}
       </div>
+
       <Footer />
     </>
+
   );
 }
 

@@ -1,10 +1,12 @@
 import {saveAs} from "file-saver";
 
 const ImageCard = (props) => {
+
   if (props.src == "") {
     return (
       <div className="bg-gray-800 shadow-lg w-96 h-96 mb-10">
         <div className="text-center p-2">
+
           <img
             className="w-96 h-80 rounded-lg"
             src={
@@ -15,6 +17,7 @@ const ImageCard = (props) => {
           <span className="font-medium text-xl p-2 text-white ">
             {props.title}
           </span>
+
         </div>
       </div>
     );
@@ -38,6 +41,7 @@ const ImageCard = (props) => {
         <span className="font-medium text-xl p-2 text-white ">
           {props.title}
         </span>
+
       </div>
       {props.title == "Colorized Image" ? (
         <div className="m-4">
