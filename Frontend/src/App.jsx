@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import ImageNO from "./components/imageColor";
 import FileUpload from "./components/Drag";
 import Navbar from "./components/Navbar";
-import MainCard from "./components/MainCard";
+// import MainCard from "./components/MainCard";
 import Footer from "./components/Footer";
 
 function App() {
@@ -41,15 +41,15 @@ function App() {
     console.log("ff",formData.getAll('files'))
 
     try {
+      const api_url=import.meta.env.VITE_API_URL
       setColorizedImage(image);
-      const res = await fetch("http://localhost:8000", {
+      const res = await fetch(api_url, {
         method: "POST",
         body: formData,
       });
       if (res.ok) {
         // "data:image/png;base64," is the prefix that specifies the data is a base64-encoded PNG image
         const filear = await res.json();
-
         let colorizedImageArray = filear.map(
           (e) => "data:image/png;base64," + e
         );
@@ -75,13 +75,13 @@ function App() {
     <>
       <div className="text-white bg-[#507687]">
         <form
-          onSubmit={(e) => handleImageUpload(e)}
+          onSubmit={handleImageUpload}
           method="post"
           encType="multipart/form-data"
         >
           <Navbar />
 
-          <MainCard />
+          {/* <MainCard /> */}
 
           <div id="drag" className="flex flex-col items-center gap-2 p-20">
             <label className="font-bold text-xl" htmlFor="file">

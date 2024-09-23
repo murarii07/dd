@@ -1,10 +1,10 @@
-import {saveAs} from "file-saver";
+import {saveAs} from 'file-saver';
 
 const ImageCard = (props) => {
 
   if (props.src == "") {
     return (
-      <div className="bg-gray-800 shadow-lg w-96 h-96 mb-10">
+      <div className="bg-gray-800 shadow-lg w-96  mb-10 flex flex-col items-center rounded-lg">
         <div className="text-center p-2">
 
           <img
@@ -31,7 +31,7 @@ const ImageCard = (props) => {
 
 
   return (
-    <div className="bg-gray-800 shadow-lg w-96 rounded-xl flex flex-col items-center my-10">
+    <div className='bg-gray-800 shadow-lg w-96  mb-10 flex flex-col items-center rounded-lg'>
       <div className="text-center p-2">
         <img
           className="w-96 h-80 rounded-lg"

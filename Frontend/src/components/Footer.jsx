@@ -3,7 +3,6 @@ import React from 'react'
 const Footer = () => {
   return (
     <div>
-        
 
 <footer class="bg-white shadow dark:bg-gray-900">
     <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
