@@ -1,3 +1,4 @@
+import ImageComparison from "./slider";
 import ImageCard from "./ImageCard";
 const ImageNO= (props) => {
 return(

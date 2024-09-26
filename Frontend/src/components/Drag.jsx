@@ -20,7 +20,7 @@ const FileUpload = ({handleImageChange}) => {
   });
 
   return (
-    <div className="upload-box" {...getRootProps()}>
+    <div className="upload-box bg-[#F0F0F0] m-10" {...getRootProps()}>
       <input {...getInputProps({
         name:'files',
         type:'file',
@@ -30,15 +30,15 @@ const FileUpload = ({handleImageChange}) => {
       }
       )} />
       {uploadedFiles.length > 0 ? (
-        <p>File(s) uploaded: {uploadedFiles.join(", ")}</p> // Display the uploaded file names
+        <p className="text-#333333">File(s) uploaded: {uploadedFiles.join(", ")}</p> // Display the uploaded file names
       ) : (
         <>
           {isDragActive ? (
-            <p>Drop the folder or images here...</p>
+            <p className="text-#333333">Drop the folder or images here...</p>
           ) : (
             <>
-              <div className="upload-icon">&#x2193;</div> {/* Optional: Use an SVG icon or custom arrow */}
-              <p>Choose a Image(s) or drag it here.</p>
+              <div className="upload-icon ">&#x2193;</div> {/* Optional: Use an SVG icon or custom arrow */}
+              <p className="text-#333333">Choose a Image(s) or drag it here.</p>
             </>
           )}
         </>
