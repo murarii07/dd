@@ -11,7 +11,7 @@ const ImageCard = (props) => {
     <div className="text-center p-4 w-full border-box ">
 
         <img
-          className="max-w-fit h-80 rounded-lg"
+          className="rounded-lg"
           src={props.src}
           alt={props.alt}
           ></img>

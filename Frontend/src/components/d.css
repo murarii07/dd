@@ -100,7 +100,7 @@ body{
 
 }
 .slide-box{
-  min-height:90% ;
+  height:90% ;
   border:2px solid rgb(236, 236, 236);
   border-radius: 15px;
   background: linear-gradient(145deg, #e6e6e6, #ffffff);
@@ -114,7 +114,8 @@ img{
   height:70%;
 }
 .slide-box img{
- height: 100%;
+object-fit: cover;
+ height: 80%;
  width: 100%;
 }
 .image-box{
