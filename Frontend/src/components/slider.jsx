@@ -31,12 +31,12 @@ if (props.flag) {
   }, []); // Run this effect once on mount
 
   return (
-    <div className="w-full  m-4 image-box1 gap-2 px-4">
-  <div className=" slide-box1 bg-[#F0F0F0] shadow-lg mb-10 flex flex-col items-center justify-between rounded-lg transition-transform transform hover:scale-105">
+    <div className="m-4 image-box1 gap-2 ">
+  <div className=" slide-box1 bg-[#F0F0F0] shadow-lg mb-10 flex flex-col justify-between rounded-lg transition-transform transform hover:scale-105">
     <div className=" text-center p-4 w-full  ">
       <ReactCompareSlider
         ref={reactCompareSliderRef}
-        style={{width:"100%",height:"240px"}}
+        style={{width:"100%",height:"300px"}}
         itemOne={<ReactCompareSliderImage src={props.src1} />}
         itemTwo={<ReactCompareSliderImage src={props.src2} />}
         position={props.position}

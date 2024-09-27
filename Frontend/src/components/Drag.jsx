@@ -30,7 +30,7 @@ const FileUpload = ({handleImageChange}) => {
       }
       )} />
       {uploadedFiles.length > 0 ? (
-        <p className="text-#333333">File(s) uploaded: {uploadedFiles.join(", ")}</p> // Display the uploaded file names
+        <p className="text-#333333 overflow-auto ">File(s) uploaded: {uploadedFiles.join(", ")}</p> // Display the uploaded file names
       ) : (
         <>
           {isDragActive ? (
