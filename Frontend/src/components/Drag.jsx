@@ -38,7 +38,7 @@ const FileUpload = ({handleImageChange}) => {
           ) : (
             <>
               <div className="upload-icon ">&#x2193;</div> {/* Optional: Use an SVG icon or custom arrow */}
-              <p className="text-#333333">Choose a Image(s) or drag it here.</p>
+              <p className="text-#333333">Browse or drag & drop to upload image(s)</p>
             </>
           )}
         </>

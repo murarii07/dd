@@ -28,7 +28,6 @@ function App() {
   const [image, setImage] = useState([]);
   const [ColorizedImage, setColorizedImage] = useState([]);
   const handleImageChange = (acceptedFiles) => {
-    setFlad(false)
     setImage(acceptedFiles.map(file => URL.createObjectURL(file)));
   };
 
@@ -79,15 +78,15 @@ function App() {
     <>
     <MainCard />
     <div className="text-white dark:bg-[#E0E0E0]">
-    {!(ColorizedImage.length) ?
+    {ColorizedImage.length<=0 ?
     (<form
       onSubmit={handleImageUpload}
       method="post"
       encType="multipart/form-data">
 
-      <div id="drag" className=" flex flex-col items-center  ">
+      <div id="drag" className=" flex flex-col items-center   ">
         <FileUpload handleImageChange={handleImageChange} />
-        <button
+        <button id="color-box"
           class=" mb-10 text-white bg-[#007BFF] hover: font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:#bg-[#0056b3] dark:focus:ring-blue-800"
           type="submit"
         >
@@ -109,7 +108,6 @@ function App() {
       })) : ""}
     </div>
     </div>
-    {/* <LoadingBar /> */}
     <Footer />
     </>
   );
